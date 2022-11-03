@@ -1,13 +1,19 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const expressHbs = require('express-handlebars');
 
 const path = require('path');
 
 const app = express();
 
 
-app.set ('view engine', 'pug');
-//default behavior,  should be changed(second argument) in case we keep our templates in another folder(not  in views);
+app.engine('hbs', expressHbs({
+    layoutsDir: 'views/layouts/',
+    defaultLayout: 'main-layout',
+    extname: 'hbs'
+    })
+);
+app.set ('view engine', 'hbs');
 app.set('views', 'views');
 
 const adminData = require('./routes/admin');

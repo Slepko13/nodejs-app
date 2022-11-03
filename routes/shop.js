@@ -5,9 +5,13 @@ const router = express.Router();
 
 const rootDir = require('../util/path');
 
+const adminData = require('./admin');
+
 router.get('/', (req, res, next) => {
     console.log("In the /");
-    res.sendFile(path.join(rootDir, 'views', 'shop.html'))
+    const products = adminData.products;
+    // res.sendFile(path.join(rootDir, 'views', 'shop.html'));
+    res.render('shop',{prods: products, title: "My pug title"});
 })
 
 

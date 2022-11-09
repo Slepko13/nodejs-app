@@ -6,7 +6,9 @@
 	"scripts": {
 		"start": "nodemon app.js",
 		"prepare": "husky install",
-		"prettier": "prettier --write ."
+		"prettier": "prettier --write .",
+		"lint": "eslint --fix",
+		"lint:check": "eslint ."
 	},
 	"repository": {
 		"type": "git",
@@ -22,6 +24,10 @@
 	"dependencies": {
 		"body-parser": "^1.20.1",
 		"ejs": "^3.1.8",
+		"eslint": "^8.27.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-import": "^2.26.0",
+		"eslint-plugin-unused-imports": "^2.0.0",
 		"express": "4.16.3",
 		"express-handlebars": "^3.0.0",
 		"pug": "^3.0.2"
@@ -29,8 +35,10 @@
 	"devDependencies": {
 		"@commitlint/cli": "^17.2.0",
 		"@commitlint/config-conventional": "^17.2.0",
+		"eslint-plugin-prettier": "^4.2.1",
 		"husky": "^8.0.2",
 		"nodemon": "^2.0.20",
-		"prettier": "^2.7.1"
+		"prettier": "^2.7.1",
+		"sass": "^1.56.1"
 	}
 }

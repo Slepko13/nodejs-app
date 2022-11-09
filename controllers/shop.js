@@ -16,7 +16,7 @@ exports.getProduct = (req, res, next) => {
 		res.render('shop/product-details', {
 			prod: product,
 			pageTitle: 'Product' + ' ' + prodId,
-			path: '/products/:prodId',
+			path: '/products',
 			prodId,
 		});
 	});
@@ -31,6 +31,11 @@ exports.getIndex = (req, res, next) => {
 		});
 	});
 };
+
+exports.postCart = ( req, res, next ) => {
+	console.log( req.body.productId);
+	res.redirect('/cart');
+} ;
 
 exports.getCart = (req, res, next) => {
 	res.render('shop/cart', {

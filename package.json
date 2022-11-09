@@ -1,34 +1,36 @@
 {
-  "name": "nodejs-app",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "scripts": {
-    "start": "nodemon app.js",
-    "prepare": "husky install"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Slepko13/nodejs-app.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Slepko13/nodejs-app/issues"
-  },
-  "homepage": "https://github.com/Slepko13/nodejs-app#readme",
-  "dependencies": {
-    "body-parser": "^1.20.1",
-    "ejs": "^3.1.8",
-    "express": "4.16.3",
-    "express-handlebars": "^3.0.0",
-    "pug": "^3.0.2"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^17.2.0",
-    "@commitlint/config-conventional": "^17.2.0",
-    "husky": "^8.0.2",
-    "nodemon": "^2.0.20"
-  }
+	"name": "nodejs-app",
+	"version": "1.0.0",
+	"description": "",
+	"main": "app.js",
+	"scripts": {
+		"start": "nodemon app.js",
+		"prepare": "husky install",
+		"prettier": "prettier --write ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Slepko13/nodejs-app.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Slepko13/nodejs-app/issues"
+	},
+	"homepage": "https://github.com/Slepko13/nodejs-app#readme",
+	"dependencies": {
+		"body-parser": "^1.20.1",
+		"ejs": "^3.1.8",
+		"express": "4.16.3",
+		"express-handlebars": "^3.0.0",
+		"pug": "^3.0.2"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^17.2.0",
+		"@commitlint/config-conventional": "^17.2.0",
+		"husky": "^8.0.2",
+		"nodemon": "^2.0.20",
+		"prettier": "^2.7.1"
+	}
 }

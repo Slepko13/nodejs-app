@@ -17,7 +17,7 @@ exports.getProduct = (req, res, next) => {
 			prod: product,
 			pageTitle: 'Product' + ' ' + prodId,
 			path: '/products/:prodId',
-			prodId
+			prodId,
 		});
 	});
 };

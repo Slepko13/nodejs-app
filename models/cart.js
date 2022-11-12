@@ -32,33 +32,33 @@ module.exports = class Cart {
 				console.log(err);
 			});
 		});
-	};
+	}
 
-	static deleteProduct( id, productPrice) {
+	static deleteProduct(id, productPrice) {
 		console.log(id, productPrice);
 		fs.readFile(p, (err, fileContent) => {
 			if (err) {
-				return
+				return;
 			}
-			let	cart = JSON.parse(fileContent);
-			const product  = cart.products.find(product => product.id === id);
-			if(!product) {
+			let cart = JSON.parse(fileContent);
+			const product = cart.products.find(product => product.id === id);
+			if (!product) {
 				return;
 			}
 			const qty = product.qty;
 			cart.products = [...cart.products.filter(prod => prod.id !== id)];
-			cart.totalPrice -=qty *  +productPrice;
+			cart.totalPrice -= qty * +productPrice;
 			fs.writeFile(p, JSON.stringify(cart), err => {
 				console.log(err);
 			});
 		});
-	};
+	}
 
 	static getCart(cb) {
 		fs.readFile(p, (err, fileContent) => {
 			let cart = JSON.parse(fileContent);
 			if (err) {
-				console.log(err)
+				console.log(err);
 			} else {
 				cart = JSON.parse(fileContent);
 				cb(cart);

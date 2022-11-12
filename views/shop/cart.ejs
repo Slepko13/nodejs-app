@@ -1,5 +1,25 @@
 <%- include('../includes/head.ejs')%>
 <body>
 <%- include('../includes/nav.ejs')%>
-<h1>Cart page</h1>
+<main>
+    <ul>
+        <% if (products.length > 0) { %>
+        <% for (p of products) { %>
+        <li>
+            <p><%= p.productData.title%> (<%=p.qty%>)</p>
+            <form action="/cart-delete-item" method="post">
+                <input type="hidden" name="productId" value="<%=p.productData.id%>">
+                <button class="btn">Delete</button>
+            </form>
+        </li>
+            <% } %>
+            <br>
+            <div>Total price <%= totalPrice%></div>
+
+        <% } else { %>
+       <div>Cart empty</div>
+        <% } %>
+    </ul>
+
+</main>
 <%- include('../includes/end.ejs') %>

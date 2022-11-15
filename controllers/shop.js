@@ -11,7 +11,7 @@ exports.getProducts = (req, res, next) => {
 			});
 		})
 		.catch(err => {
-			console.log(err)
+			console.log(err);
 		});
 };
 
@@ -28,7 +28,7 @@ exports.getProduct = (req, res, next) => {
 		})
 		.catch(err => {
 			console.log(err);
-		})
+		});
 };
 
 exports.getIndex = (req, res, next) => {
@@ -41,7 +41,7 @@ exports.getIndex = (req, res, next) => {
 			});
 		})
 		.catch(err => {
-			console.log(err)
+			console.log(err);
 		});
 };
 

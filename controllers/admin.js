@@ -11,14 +11,14 @@ exports.getAddProduct = (req, res, next) => {
 exports.postAddProduct = (req, res, next) => {
 	const { title, imageUrl, price, description } = req.body;
 	let product = new Product(null, title, imageUrl, price, description);
-	product.save()
+	product
+		.save()
 		.then(() => {
 			res.redirect('/');
 		})
 		.catch(err => {
-			console.log(err)
+			console.log(err);
 		});
-
 };
 
 exports.getProducts = (req, res, next) => {
@@ -31,7 +31,7 @@ exports.getProducts = (req, res, next) => {
 			});
 		})
 		.catch(err => {
-			console.log(err)
+			console.log(err);
 		});
 };
 
@@ -66,7 +66,6 @@ exports.postDeleteProduct = (req, res, next) => {
 			res.redirect('/admin/products');
 		})
 		.catch(err => {
-			console.log(err)
+			console.log(err);
 		});
-
 };

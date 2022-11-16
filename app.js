@@ -5,6 +5,7 @@ const path = require('path');
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const errorController = require('./controllers/error');
+const sequelize = require('./util/database');
 
 const app = express();
 
@@ -23,6 +24,13 @@ app.use(shopRoutes);
 
 app.use(errorController.getError);
 
-app.listen(3000, () => {
-	console.log('Server is running');
-});
+sequelize
+	.sync()
+	.then(result => {
+		app.listen(3000, () => {
+			console.log('Server is running');
+		});
+	})
+	.catch(err => {
+		console.log(err);
+	});

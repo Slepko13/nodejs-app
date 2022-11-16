@@ -34,7 +34,7 @@
 		"lint-staged": "^13.0.3",
 		"mysql2": "^2.3.3",
 		"pug": "^3.0.2",
-		"sequelize": "^6.25.5"
+		"sequelize": "^5.22.5"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.2.0",

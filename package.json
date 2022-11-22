@@ -2,9 +2,11 @@
 	"name": "nodejs-app",
 	"version": "1.0.0",
 	"description": "",
-	"main": "app.js",
+	"main": "appMongo.js",
 	"scripts": {
-		"start": "nodemon app.js",
+		"start": "nodemon appMongo.js",
+		"start:mongo": "nodemon appMongo.js",
+		"start:sql": "nodemon appSQL.js",
 		"prepare": "husky install",
 		"prettier": "prettier --write .",
 		"lint": "eslint --fix",
@@ -32,6 +34,7 @@
 		"express-handlebars": "^3.0.0",
 		"isomorphic-fetch": "^3.0.0",
 		"lint-staged": "^13.0.3",
+		"mongodb": "^4.12.0",
 		"mysql2": "^2.3.3",
 		"pug": "^3.0.2",
 		"sequelize": "^5.22.5"

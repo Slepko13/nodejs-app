@@ -1,8 +1,10 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
+let _db;
+
 const mongoConnect = callback => {
 	MongoClient.connect(
-		'mongodb+srv://node-complete:nodecomplete@cluster0.etxrz.azure.mongodb.net/?retryWrites=true&w=majority',
+		'mongodb+srv://node-complete:nodecomplete@cluster0.etxrz.azure.mongodb.net/shop?retryWrites=true&w=majority',
 		{
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
@@ -11,11 +13,20 @@ const mongoConnect = callback => {
 	)
 		.then(client => {
 			console.log('MongoDB is connected');
-			callback(client);
+			_db = client.db();
+			callback();
 		})
 		.catch(err => {
 			console.log(err);
+			throw err;
 		});
 };
 
-module.exports = mongoConnect;
+const getDb = () => {
+	if (_db) {
+		return _db;
+	}
+	throw 'No database found';
+};
+exports.mongoConnect = mongoConnect;
+exports.getDb = getDb;

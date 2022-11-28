@@ -2,10 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
-const adminRoutes = require('./routes/admin');
-const shopRoutes = require('./routes/shop');
+const adminRoutes = require('./routes/adminMongo');
+const shopRoutes = require('./routes/shopMongo');
 const errorController = require('./controllers/error');
-const mongoConnect = require('./util/databaseMongo');
+const mongoConnect = require('./util/databaseMongo').mongoConnect;
 
 const app = express();
 
@@ -28,15 +28,15 @@ app.use((req, res, next) => {
 	//     .catch(err => {
 	//         console.log(err);
 	//     });
+	next();
 });
 
-// app.use('/admin', adminRoutes);
-// app.use(shopRoutes);
+app.use('/admin', adminRoutes);
+app.use(shopRoutes);
 
 app.use(errorController.getError);
 
-mongoConnect(client => {
-	console.log(client);
+mongoConnect(() => {
 	app.listen(3000, () => {
 		console.log('Server is running');
 	});

@@ -47,10 +47,13 @@
             <input
                     type="hidden"
                     name="productId"
-                    value ="<%= product.id %>"
+                    value ="<%= product._id %>"
             >
         <% } %>
-        <button type="submit">
+        <button
+                type="submit"
+                class="btn"
+        >
             <% if (editing) { %>
             Update Product
             <% } else {%>

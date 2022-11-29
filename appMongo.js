@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const User = require('./models/userMongo');
 
 const adminRoutes = require('./routes/adminMongo');
 const shopRoutes = require('./routes/shopMongo');
@@ -20,15 +21,14 @@ app.use(
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
-	// User.findByPk(1)
-	//     .then(user => {
-	//         req.user = user;
-	//         next();
-	//     })
-	//     .catch(err => {
-	//         console.log(err);
-	//     });
-	next();
+	User.findById("6384dfa1e9e4123cc9a04fee")
+	    .then(user => {
+	        req.user = user;
+	        next();
+	    })
+	    .catch(err => {
+	        console.log(err);
+	    });
 });
 
 app.use('/admin', adminRoutes);

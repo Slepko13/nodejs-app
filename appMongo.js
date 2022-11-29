@@ -21,14 +21,14 @@ app.use(
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
-	User.findById("6384dfa1e9e4123cc9a04fee")
-	    .then(user => {
-	        req.user = user;
-	        next();
-	    })
-	    .catch(err => {
-	        console.log(err);
-	    });
+	User.findById('6384dfa1e9e4123cc9a04fee')
+		.then(user => {
+			req.user = user;
+			next();
+		})
+		.catch(err => {
+			console.log(err);
+		});
 });
 
 app.use('/admin', adminRoutes);

@@ -99,17 +99,17 @@ exports.postOrder = (req, res, next) => {
 };
 
 exports.getOrders = (req, res, next) => {
-    req.user
-        .getOrders()
-        .then(orders => {
-            console.log('orders', orders);
-            res.render('shop/orders', {
-                orders: orders,
-                pageTitle: 'Orders Page',
-                path: '/orders',
-            });
-        })
-        .catch(err => {
-            console.log(err);
-        });
+	req.user
+		.getOrders()
+		.then(orders => {
+			console.log('orders', orders);
+			res.render('shop/orders', {
+				orders: orders,
+				pageTitle: 'Orders Page',
+				path: '/orders',
+			});
+		})
+		.catch(err => {
+			console.log(err);
+		});
 };

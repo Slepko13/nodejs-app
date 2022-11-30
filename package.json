@@ -9,7 +9,7 @@
 		"start:sql": "nodemon appSQL.js",
 		"prepare": "husky install",
 		"prettier": "prettier --write .",
-		"lint": "eslint --fix",
+		"lint": "eslint --fix .",
 		"lint:check": "eslint ."
 	},
 	"repository": {
@@ -50,6 +50,6 @@
 	},
 	"lint-staged": {
 		"*": "prettier --write --ignore-unknown",
-		"*.(ts|js)": "eslint --fix"
+		"*.(ts|js)": "eslint --fix ."
 	}
 }

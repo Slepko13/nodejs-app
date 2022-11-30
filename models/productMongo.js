@@ -22,9 +22,7 @@ class Product {
 				.updateOne({ _id: new mongodb.ObjectId(this._id) }, { $set: this });
 		}
 		return dbOp
-			.then(result => {
-				console.log('yo', result);
-			})
+			.then(result => {})
 			.catch(err => {
 				console.log(err);
 			});
@@ -52,7 +50,6 @@ class Product {
 			.find({ _id: new mongodb.ObjectId(prodId) })
 			.next()
 			.then(product => {
-				console.log('my single product', product);
 				return product;
 			})
 			.catch(err => {
@@ -66,7 +63,6 @@ class Product {
 			.collection('products')
 			.deleteOne({ _id: new mongodb.ObjectId(prodId) })
 			.then(product => {
-				console.log('Deleted', product);
 				return product;
 			})
 			.catch(err => {

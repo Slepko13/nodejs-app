@@ -1,12 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const mongoose = require('mongoose');
 const User = require('./models/userMongo');
 
 const adminRoutes = require('./routes/adminMongo');
 const shopRoutes = require('./routes/shopMongo');
 const errorController = require('./controllers/error');
-const mongoConnect = require('./util/databaseMongo').mongoConnect;
+const { ServerApiVersion } = require('mongodb');
 
 const app = express();
 
@@ -21,9 +22,9 @@ app.use(
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
-	User.findById('63861dfae9e4123cc9a04ffa')
+	User.findById('6388cc5ddafcdefe7c302a71')
 		.then(user => {
-			req.user = new User(user.username, user.email, user.cart, user._id);
+			req.user = user;
 			next();
 		})
 		.catch(err => {
@@ -36,8 +37,33 @@ app.use(shopRoutes);
 
 app.use(errorController.getError);
 
-mongoConnect(() => {
-	app.listen(3000, () => {
-		console.log('Server is running');
+mongoose
+	.connect(
+		'mongodb+srv://node-complete:nodecomplete@cluster0.etxrz.azure.mongodb.net/shop?retryWrites=true&w=majority',
+		{
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+			serverApi: ServerApiVersion.v1,
+		}
+	)
+	.then(res => {
+		User.findOne().then(user => {
+			if (!user) {
+				const user = new User({
+					username: 'Fosfat',
+					email: 'fosfat1980@gmail.com',
+					cart: {
+						items: [],
+					},
+				});
+				user.save();
+			}
+		});
+
+		app.listen(3000, () => {
+			console.log('Server is running');
+		});
+	})
+	.catch(err => {
+		console.log(err);
 	});
-});

@@ -1,3 +1,3 @@
-module. exports = function test (test ) {
-    return test
-}
+module.exports = function test(test) {
+	return test;
+};

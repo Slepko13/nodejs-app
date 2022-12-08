@@ -4,6 +4,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoBDStore = require('connect-mongodb-session')(session);
+const csrf = require('csurf');
+const flash = require('connect-flash');
 
 const User = require('./models/userMongo');
 const authRoutes = require('./routes/authMongo');
@@ -20,6 +22,8 @@ const store = new MongoBDStore({
 	uri: MONGODB_URI,
 	collection: 'sessions',
 });
+
+const csrfProtection = csrf();
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -39,6 +43,9 @@ app.use(
 	})
 );
 
+app.use(csrfProtection);
+app.use(flash());
+
 app.use((req, res, next) => {
 	if (!req.session.user) {
 		return next();
@@ -51,6 +58,13 @@ app.use((req, res, next) => {
 		.catch(err => {
 			console.log(err);
 		});
+});
+
+app.use((req, res, next) => {
+	console.log('session', req.session);
+	res.locals.isAuth = req.session.isLoggedIn;
+	res.locals.csrfToken = req.csrfToken();
+	next();
 });
 
 app.use('/admin', adminRoutes);
@@ -66,19 +80,6 @@ mongoose
 		serverApi: ServerApiVersion.v1,
 	})
 	.then(res => {
-		User.findOne().then(user => {
-			if (!user) {
-				const user = new User({
-					username: 'Fosfat',
-					email: 'fosfat1980@gmail.com',
-					cart: {
-						items: [],
-					},
-				});
-				user.save();
-			}
-		});
-
 		app.listen(3000, () => {
 			console.log('Server is running');
 		});

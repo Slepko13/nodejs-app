@@ -1,26 +1,26 @@
 {
-	"extends": ["eslint:recommended", "prettier"],
-	"plugins": ["unused-imports", "prettier"],
-	"parserOptions": {
-		"ecmaVersion": "latest"
-	},
-	"env": {
-		"browser": true,
-		"es6": true,
-		"node": true
-	},
-	"rules": {
-		"prettier/prettier": "error",
-		"no-unused-vars": "off",
-		"unused-imports/no-unused-imports": "error",
-		"unused-imports/no-unused-vars": [
-			"warn",
-			{
-				"vars": "all",
-				"varsIgnorePattern": "^_",
-				"args": "none",
-				"argsIgnorePattern": "^_"
-			}
-		]
-	}
+  "extends": ["eslint:recommended", "prettier"],
+  "plugins": ["unused-imports", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "none",
+        "argsIgnorePattern": "^_"
+      }
+    ]
+  }
 }

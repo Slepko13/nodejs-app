@@ -98,7 +98,6 @@ exports.postEditProduct = (req, res, next) => {
   const errors = validationResult(req);
   console.log(errors.array());
   if (!errors.isEmpty()) {
-    console.log('Errors edit');
     return res.status(422).render('admin/edit-product', {
       product: {
         title,

@@ -22,7 +22,7 @@ exports.getLogin = (req, res, next) => {
   } else {
     message = null;
   }
-  console.log(message);
+
   res.render('auth/login', {
     pageTitle: 'Login Page',
     path: '/login',
@@ -37,7 +37,7 @@ exports.getLogin = (req, res, next) => {
 exports.postLogin = (req, res, next) => {
   const { email, password } = req.body;
   const errors = validationResult(req);
-  console.log(errors);
+
   if (!errors.isEmpty()) {
     return res.status(422).render('auth/login', {
       path: '/login',
@@ -69,7 +69,6 @@ exports.postLogin = (req, res, next) => {
             req.session.isLoggedIn = true;
             req.session.user = user;
             return req.session.save(err => {
-              console.log(err);
               res.redirect('/');
             });
           }
@@ -89,13 +88,14 @@ exports.postLogin = (req, res, next) => {
         });
     })
     .catch(err => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
 exports.postLogout = (req, res, next) => {
   req.session.destroy(err => {
-    console.log(err);
     res.redirect('/');
   });
 };
@@ -122,10 +122,7 @@ exports.getSignup = (req, res, next) => {
 exports.postSignup = (req, res, next) => {
   const { email, password, confirmPassword } = req.body;
   const errors = validationResult(req);
-  console.log('hello');
-  console.log(errors);
   if (!errors.isEmpty()) {
-    console.log(errors.array());
     return res.status(422).render('auth/signup', {
       path: '/signup',
       pageTitle: 'Signup',
@@ -157,13 +154,14 @@ exports.postSignup = (req, res, next) => {
       });
     })
     .catch(err => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
 exports.getReset = (req, res, next) => {
   let message = req.flash('error');
-  console.log(message);
   if (message.length > 0) {
     message = message[0];
   } else {
@@ -179,8 +177,10 @@ exports.getReset = (req, res, next) => {
 exports.postReset = (req, res, next) => {
   crypto.randomBytes(32, (err, buffer) => {
     if (err) {
-      console.log(err);
-      return res.redirect('/');
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+      // return res.redirect('/');
     }
     const token = buffer.toString('hex');
     User.findOne({ email: req.body.email })
@@ -206,7 +206,9 @@ exports.postReset = (req, res, next) => {
         });
       })
       .catch(err => {
-        console.log(err);
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
       });
   });
 };
@@ -221,7 +223,6 @@ exports.getNewPassword = (req, res, next) => {
   })
     .then(user => {
       let message = req.flash('error');
-      console.log(message);
       if (message.length > 0) {
         message = message[0];
       } else {
@@ -236,7 +237,9 @@ exports.getNewPassword = (req, res, next) => {
       });
     })
     .catch(err => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };
 
@@ -263,6 +266,8 @@ exports.postNewPassword = (req, res, next) => {
       res.redirect('/login');
     })
     .catch(err => {
-      console.log(err);
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
     });
 };

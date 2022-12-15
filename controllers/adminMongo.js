@@ -14,7 +14,26 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
-  const { title, price, description, imageUrl } = req.body;
+  const { title, price, description } = req.body;
+  const image = req.file;
+  console.log('image', image);
+  if (!image) {
+    console.log('in error');
+    return res.status(422).render('admin/edit-product', {
+      product: {
+        title,
+        price,
+        description,
+      },
+      pageTitle: 'Add Product',
+      hasError: true,
+      path: '/admin/edit-product',
+      editing: false,
+      errorMessage:
+        'Attached file has incorrect format(only phg, jpg, jpeg are allowed)',
+      validationErrors: [],
+    });
+  }
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).render('admin/edit-product', {
@@ -22,7 +41,6 @@ exports.postAddProduct = (req, res, next) => {
         title,
         price,
         description,
-        imageUrl,
       },
       pageTitle: 'Add Product',
       hasError: true,
@@ -32,6 +50,7 @@ exports.postAddProduct = (req, res, next) => {
       validationErrors: errors.array(),
     });
   }
+  const imageUrl = image.path;
   const product = new Product({
     title,
     price,
@@ -96,17 +115,17 @@ exports.getEditProduct = (req, res, next) => {
 };
 
 exports.postEditProduct = (req, res, next) => {
-  console.log(req.body);
-  const { productId, title, imageUrl, price, description } = req.body;
+  const { productId, title, price, description } = req.body;
+  const image = req.file;
+
   const errors = validationResult(req);
-  console.log(errors.array());
+
   if (!errors.isEmpty()) {
     return res.status(422).render('admin/edit-product', {
       product: {
         title,
         price,
         description,
-        imageUrl,
         _id: productId,
       },
       pageTitle: 'Edit Product',
@@ -125,7 +144,10 @@ exports.postEditProduct = (req, res, next) => {
       product.title = title;
       product.price = price;
       product.description = description;
-      product.imageUrl = imageUrl;
+      if (image) {
+        product.imageUrl = image.path;
+      }
+
       return product.save().then(result => {
         res.redirect('/admin/products');
       });

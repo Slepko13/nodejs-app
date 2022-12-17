@@ -8,11 +8,11 @@
         <ul class="orders">
             <% for (o of orders) { %>
                 <li class="orders__item">
-                    <h1><%= o._id%></h1>
+                    <h1><%= o._id%> - <a href="/orders/<%=o._id%>">Invoice</a></h1>
                     <ul class="orders__products">
                         <% for (p of o.products) { %>
                             <li class="orders__products-item">
-                                <%=p.product.title%> (<%=p.quantity%>) - <a href="/orders/<%=o._id%>">Invoice</a>
+                                <%=p.product.title%> (<%=p.quantity%>)
                             </li>
                         <% } %>
                     </ul>

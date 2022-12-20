@@ -28,7 +28,8 @@
             </article>
             <% } %>
         </div>
-        <% } else {%>
+        <%- include('../includes/pagination.ejs') %>
+    <% } else {%>
         <h1>Shop not found</h1>
         <% } %>
     </main>

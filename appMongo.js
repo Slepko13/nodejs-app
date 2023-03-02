@@ -1,12 +1,17 @@
 const express = require('express');
+const https = require('https');
 const bodyParser = require('body-parser');
 const path = require('path');
+const fs = require('fs');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoBDStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
 const multer = require('multer');
+const helmet = require('helmet');
+const compression = require('compression');
+const morgan = require('morgan');
 
 const User = require('./models/userMongo');
 const authRoutes = require('./routes/authMongo');
@@ -15,8 +20,7 @@ const shopRoutes = require('./routes/shopMongo');
 const errorController = require('./controllers/error');
 const { ServerApiVersion } = require('mongodb');
 
-const MONGODB_URI =
-  'mongodb+srv://node-complete:nodecomplete@cluster0.etxrz.azure.mongodb.net/shop?retryWrites=true&w=majority';
+const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.etxrz.azure.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?retryWrites=true&w=majority`;
 
 const app = express();
 const store = new MongoBDStore({
@@ -25,6 +29,9 @@ const store = new MongoBDStore({
 });
 
 const csrfProtection = csrf();
+
+const privateKey = fs.readFileSync('server.key');
+const certificare = fs.readFileSync('server.cert');
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -49,6 +56,15 @@ const fileFilter = (req, file, cb) => {
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
+
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, 'access.log'),
+  { flags: 'a' }
+);
+
+app.use(helmet());
+app.use(compression());
+app.use(morgan('combined', { stream: accessLogStream }));
 
 app.use(
   bodyParser.urlencoded({
@@ -123,7 +139,12 @@ mongoose
     serverApi: ServerApiVersion.v1,
   })
   .then(res => {
-    app.listen(3000, () => {
+    // https
+    //   .createServer({key: privateKey, cert: certificare}, app)
+    //   .listen(process.env.PORT || 3000, () => {
+    //   console.log('Server is running');
+    // });
+    app.listen(process.env.PORT || 3000, () => {
       console.log('Server is running');
     });
   })

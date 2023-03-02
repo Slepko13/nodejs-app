@@ -4,8 +4,7 @@
   "description": "",
   "main": "appMongo.js",
   "scripts": {
-    "start": "node appMongo.js",
-    "dev": "MONGO_USER=node-complete MONGO_PASSWORD=nodecomplete MONGO_DEFAULT_DATABASE=shop nodemon appMongo.js",
+    "start": "MONGO_USER=node-complete MONGO_PASSWORD=nodecomplete MONGO_DEFAULT_DATABASE=shop nodemon appMongo.js",
     "start:sql": "nodemon appSQL.js",
     "prepare": "husky install",
     "prettier": "prettier --write .",
@@ -65,5 +64,8 @@
   "lint-staged": {
     "*": "prettier --write --ignore-unknown",
     "*.(ts|js)": "eslint --fix ."
+  },
+  "engines": {
+    "node": "16.6.1"
   }
 }

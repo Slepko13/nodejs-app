@@ -162,6 +162,7 @@ exports.postEditProduct = (req, res, next) => {
 };
 
 exports.deleteProduct = (req, res, next) => {
+  console.log(productId);
   const { productId } = req.params;
   Product.findById(productId)
     .then(product => {
